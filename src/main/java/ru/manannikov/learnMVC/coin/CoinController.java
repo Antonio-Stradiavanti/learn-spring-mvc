@@ -1,44 +1,48 @@
 package ru.manannikov.learnMVC.coin;
 
-import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.manannikov.learnMVC.generic.GenericController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/coins")
-public class CoinController {
+@AllArgsConstructor
+public class CoinController implements GenericController<CoinEntity> {
 
-    private final CoinRepository repository;
-    CoinController(CoinRepository repository) {
-       this.repository = repository;
-    }
+    private final CoinService service;
+
+    @Override
     @GetMapping("")
-    List<CoinEntity> findAll() {
-        return repository.findAll();
+    public List<CoinEntity> findAll() {
+        return service.findAll();
     }
 
+    @Override
     @GetMapping("/{id}")
-    CoinEntity findById(@PathVariable Long id) {
-        return repository.findById(id);
+    public CoinEntity findById(@PathVariable Long id) {
+        return service.findById(id);
     }
 
+    @Override
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void create(@Valid @RequestBody CoinEntity coin) {
-        repository.create(coin);
+    public void create(@RequestBody CoinEntity coin) {
+        service.create(coin);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void update(@Valid @RequestBody CoinEntity coin, @PathVariable Long id) {
-        repository.update(coin, id);
+    public void update(@RequestBody CoinEntity coin, @PathVariable Long id) {
+        service.update(coin, id);
     }
 
+    @Override
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
-        repository.delete(id);
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

@@ -1,44 +1,47 @@
 package ru.manannikov.learnMVC.portfolio;
 
-import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.manannikov.learnMVC.generic.GenericController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/portfolios")
-public class PortfolioController {
-    private final PortfolioRepository repository;
-    PortfolioController(PortfolioRepository repository) {
-        this.repository = repository;
-    }
+@AllArgsConstructor
+public class PortfolioController implements GenericController<PortfolioEntity> {
+    private final PortfolioService service;
 
+    @Override
     @GetMapping("")
-    List<PortfolioEntity> findAll() {
-        return repository.findAll();
+    public List<PortfolioEntity> findAll() {
+        return service.findAll();
     }
 
+    @Override
     @GetMapping("/{id}")
-    PortfolioEntity findById(@PathVariable Long id) {
-        return repository.findById(id);
+    public PortfolioEntity findById(@PathVariable Long id) {
+        return service.findById(id);
     }
 
+    @Override
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void create(@Valid @RequestBody PortfolioEntity exchange) {
-        repository.create(exchange);
+    public void create(@RequestBody PortfolioEntity coin) {
+        service.create(coin);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void update(@Valid @RequestBody PortfolioEntity exchange, @PathVariable Long id) {
-        repository.update(exchange, id);
+    public void update(@RequestBody PortfolioEntity coin, @PathVariable Long id) {
+        service.update(coin, id);
     }
 
+    @Override
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
-        repository.delete(id);
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

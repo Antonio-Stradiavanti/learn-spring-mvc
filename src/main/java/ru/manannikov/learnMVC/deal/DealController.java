@@ -1,41 +1,44 @@
 package ru.manannikov.learnMVC.deal;
 
-import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.manannikov.learnMVC.coin.CoinEntity;
+import ru.manannikov.learnMVC.generic.GenericController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/deals")
-public class DealController {
-    private final DealRepository repository;
+@AllArgsConstructor
+public class DealController implements GenericController<DealEntity> {
+    
+    private final DealSerivce service;
 
-    public DealController(DealRepository repository) {
-        this.repository = repository;
-    }
 
     @GetMapping("")
-    List<DealEntity> findAll() {
-        return repository.findAll();
+    @Override
+    public List<DealEntity> findAll() {
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
-    DealEntity findById(@PathVariable Long id) {
-        return repository.findById(id);
+    @Override
+    public DealEntity findById(@PathVariable Long id) {
+        return service.findById(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void create(@Valid @RequestBody DealEntity deal) {
-        repository.create(deal);
+    @Override
+    public void create(@RequestBody DealEntity deal) {
+        service.create(deal);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
-        repository.delete(id);
+    @Override
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 
 }

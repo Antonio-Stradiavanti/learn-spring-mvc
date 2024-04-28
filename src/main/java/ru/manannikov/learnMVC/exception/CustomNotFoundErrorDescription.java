@@ -1,31 +1,16 @@
 package ru.manannikov.learnMVC.exception;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class CustomNotFoundErrorDescription {
     private Integer statusCode;
     private String message;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public CustomNotFoundErrorDescription() {
-
-    }
-
-    public CustomNotFoundErrorDescription(Integer statusCode, String message) {
-        this.statusCode = statusCode;
-        this.message = message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Integer getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(Integer statusCode) {
-        this.statusCode = statusCode;
-    }
 }
