@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.manannikov.learnMVC.coin.CoinEntity;
-import ru.manannikov.learnMVC.deal.DealEntity;
 
 import java.util.List;
 import java.util.Set;
@@ -18,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name="portfolios", schema="public")
 public class PortfolioEntity{
-    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
 
     @ManyToMany

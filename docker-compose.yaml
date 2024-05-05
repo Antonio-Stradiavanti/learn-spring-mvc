@@ -1,0 +1,32 @@
+version: '3.2'
+
+volumes:
+  pg_learnMVC:
+
+services:
+  learnMVC_db:
+    image: 'postgres:latest'
+    restart: always
+    environment:
+      - 'POSTGRES_DB=learnMVC_db'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=my3Pass'
+    volumes:
+      - pg_learnMVC:/var/lib/postgresql/data
+    ports:
+      # Порт для серверного приложения и для контейнера с базой данных.
+      - '127.0.0.1:5432:5432'
+  app:
+    restart: always
+    # Указываем путь к файлу, описывающему образ и выполняем собираем образ.
+    # Относительный путь определяется из родительского каталога файла docker-compose
+    build: .
+    ports:
+      - '8000:8000'
+    depends_on:
+      - learnMVC_db
+    environment:
+      # Указываем имя докер-контейнера, в котором запущена база данных, которое парсер заменит на ip адрес контейнера.
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://learnMVC_db:5432/learnMVC_db'
+      # Параметр виртуальной машины Java, задаем максимальный размер динамической области памяти
+      JAVA_OPTS: '-Xmx512m'

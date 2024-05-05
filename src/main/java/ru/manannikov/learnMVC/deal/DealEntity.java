@@ -4,14 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.manannikov.learnMVC.coin.CoinEntity;
-import ru.manannikov.learnMVC.portfolio.PortfolioEntity;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +19,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="deals", schema="public")
 public class DealEntity {
-        @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+        @Id @GeneratedValue
         private Long id;
 
         private LocalDateTime date;

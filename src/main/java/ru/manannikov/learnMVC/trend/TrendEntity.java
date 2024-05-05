@@ -15,7 +15,7 @@ import ru.manannikov.learnMVC.coin.CoinEntity;
 @Entity
 @Table(name="trends", schema="public")
 public class TrendEntity {
-        @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+        @Id @GeneratedValue
         private Long id;
 
         @ManyToOne

@@ -24,7 +24,7 @@ import ru.manannikov.learnMVC.trend.TrendEntity;
 @Entity
 @Table(name="coins", schema="public")
 public class CoinEntity  {
-    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
 
     @Column(name="coin_name", nullable = false, unique = true)

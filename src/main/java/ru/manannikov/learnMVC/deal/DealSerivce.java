@@ -2,8 +2,6 @@ package ru.manannikov.learnMVC.deal;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.manannikov.learnMVC.coin.CoinEntity;
-import ru.manannikov.learnMVC.coin.CoinRepository;
 import ru.manannikov.learnMVC.exception.ResourceNotFoundExcetion;
 import ru.manannikov.learnMVC.generic.GenericService;
 
