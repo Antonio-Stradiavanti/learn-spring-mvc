@@ -1,5 +1,6 @@
 package ru.manannikov.learnMVC.coin;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/coins")
 @AllArgsConstructor
+@Tag(
+        name = "Запросы к таблице базы данных \"coins\"",
+        description = "HTTP запросы типов POST, PUT, DELETE -> доступны только авторизированным пользователям."
+)
 public class CoinController implements GenericController<CoinEntity> {
 
     private final CoinService service;

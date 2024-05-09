@@ -1,5 +1,6 @@
 package ru.manannikov.learnMVC.portfolio;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/portfolios")
 @AllArgsConstructor
+@Tag(
+        name = "Запросы к таблице базы данных \"portfolios\"",
+        description = "HTTP запросы типов POST, PUT, DELETE -> доступны только авторизированным пользователям."
+)
 public class PortfolioController implements GenericController<PortfolioEntity> {
     private final PortfolioService service;
 

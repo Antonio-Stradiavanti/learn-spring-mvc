@@ -29,9 +29,14 @@ public class SecurityConfig {
         // httpBasic -- не создает html форму и используется для аунтификации через терминал, т.е. подходит для тестирования API через Postman, в браузере выдает стандартное всплывающее окно.
         String path = "/api/**";
         http.authorizeHttpRequests((authorizeHttpRequests) ->
-                authorizeHttpRequests.requestMatchers(HttpMethod.GET, path)
-                        .authenticated().requestMatchers(HttpMethod.PUT, path).hasRole("ADMIN").requestMatchers(HttpMethod.DELETE, path).hasRole("ADMIN").requestMatchers(HttpMethod.POST, path).hasRole("ADMIN")
+                authorizeHttpRequests
+                        // Первый путь -- документация
+                        .requestMatchers("/v3/api-docs", "/v3/api-docs.yaml",  "/v3/api-docs/**", "/swagger-ui/**",  "/swagger-resources", "/swagger-resources/**",  "/swagger-ui.html").permitAll()
+
+                        .requestMatchers(path).authenticated()
+
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+
                         .anyRequest().denyAll()
         ).httpBasic(Customizer.withDefaults());
         return http.build();

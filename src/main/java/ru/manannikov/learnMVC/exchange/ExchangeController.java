@@ -1,5 +1,6 @@
 package ru.manannikov.learnMVC.exchange;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/exchanges")
 @AllArgsConstructor
+@Tag(
+        name = "Запросы к таблице базы данных \"exchanges\"",
+        description = "HTTP запросы типов POST, PUT, DELETE -> доступны только авторизированным пользователям."
+)
 public class ExchangeController {
 
     private final ExchangeService service;

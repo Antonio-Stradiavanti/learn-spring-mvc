@@ -1,5 +1,6 @@
 package ru.manannikov.learnMVC.user;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -8,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/users")
 @AllArgsConstructor
+@Hidden
 public class UserController {
     private final UserService service;
 

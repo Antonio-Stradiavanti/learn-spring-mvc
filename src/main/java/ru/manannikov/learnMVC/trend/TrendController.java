@@ -1,5 +1,6 @@
 package ru.manannikov.learnMVC.trend;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/trends")
 @AllArgsConstructor
+@Tag(
+        name = "Запросы к таблице базы данных \"trends\"",
+        description = "HTTP запросы типов POST, PUT, DELETE -> доступны только авторизированным пользователям."
+)
 public class TrendController {
     private final TrendService service;
 
