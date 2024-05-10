@@ -28,7 +28,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
         description = "Введите имя пользователя и пароль",
         scheme = "basic",
         type = SecuritySchemeType.HTTP,
-        in = SecuritySchemeIn.DEFAULT
+        in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
 }

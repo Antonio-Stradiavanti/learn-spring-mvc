@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,16 +14,20 @@ import org.springframework.security.web.SecurityFilterChain;
 import ru.manannikov.learnMVC.user.UserService;
 
 @Configuration
-@AllArgsConstructor
 public class SecurityConfig {
     private final UserService service;
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
+    public SecurityConfig(UserService service) {
+        this.service = service;
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     // Определим права доступа.
     // build возвращает реализацию интерфейса SecurityFilterChain
+    // Этот бин создает реализацию функционального интерфейса, которая будет использована в контексте, где ему будет передан username % usd.loadUserByUsername(username).
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // Определяет то, как именно мы будем авторизировать (разрешать доступ к методам API)
@@ -38,13 +43,9 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
 
                         .anyRequest().denyAll()
-        ).httpBasic(Customizer.withDefaults());
+        )
+        .userDetailsService(service)
+        .httpBasic(Customizer.withDefaults());
         return http.build();
-    }
-
-    // Этот бин создает реализацию функционального интерфейса, которая будет использована в контексте, где ему будет передан username % usd.loadUserByUsername(username).
-    @Bean
-    UserDetailsService userDetailsService() {
-        return service::findUserByName;
     }
 }

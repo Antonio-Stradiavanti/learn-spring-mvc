@@ -2,7 +2,9 @@ package ru.manannikov.learnMVC.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserManagementRepository extends JpaRepository<UserAccountEntity, Long>
+import java.util.Optional;
+
+public interface UserManagementRepository extends JpaRepository<UserEntity, Long>
 {
-    UserAccountEntity findByUserName(String userName);
+    Optional<UserEntity> findByUserName(String userName);
 }

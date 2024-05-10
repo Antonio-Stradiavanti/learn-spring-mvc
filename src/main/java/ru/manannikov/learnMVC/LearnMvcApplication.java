@@ -4,8 +4,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import ru.manannikov.learnMVC.user.UserAccountEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.manannikov.learnMVC.user.UserEntity;
 import ru.manannikov.learnMVC.user.UserManagementRepository;
+
+import java.util.Set;
 
 @SpringBootApplication
 public class LearnMvcApplication {
@@ -18,10 +21,10 @@ public class LearnMvcApplication {
 
 	// Возвращаем реализацию функционального интерфейса command line runner, используется для отладки приложения, вызывается сразу после инициализации констекста приложения Spring
 //	@Bean
-//	CommandLineRunner runner(UserManagementRepository repository) {
+//	CommandLineRunner runner(UserManagementRepository repository, PasswordEncoder encoder) {
 //		return args -> {
-//			repository.save(new UserAccountEntity("manannikov", "p@ssword", "ROLE_USER"));
-//			repository.save(new UserAccountEntity("admin", "ad$min", "ROLE_ADMIN"));
+//			repository.save(new UserEntity("manannikov", encoder.encode("p@ssword"), "ROLE_USER"));
+//			repository.save(new UserEntity("admin", encoder.encode("ad@in"), "ROLE_ADMIN, ROLE_USER"));
 //		};
 //	}
 
