@@ -1,35 +1,43 @@
 package ru.manannikov.learnMVC.user;
 
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.manannikov.learnMVC.exception.ResourceNotFoundExcetion;
 
+import java.util.List;
+import java.util.Optional;
+
+// Извлекает пользователя из бд при авторизации
 @Service
+@AllArgsConstructor
+// Реализует UserDetailService
 public class UserService implements UserDetailsService {
 
-    private final UserManagementRepository repository;
+    private final UserRepository repository;
 
-    public UserService(UserManagementRepository repository) {
-        this.repository = repository;
-    }
     // Возвращает пользователя по имени пользователя
     @Override
     // UserDetails -> интерфейс, содержит методы, предоставляющие основную информацию о пользователе, User -> его реализация
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUserName(username).map(UserDetailsEntity::new).orElseThrow(() -> new UsernameNotFoundException("Пользователь с именем " + username + " -> не найден."));
+       UserEntity userEntity = repository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("Пользователь " + username + "-> не найден."));
+
+        return User.builder()
+                .username(userEntity.getUserName())
+                .password(userEntity.getPassword())
+                .roles(getRoles(userEntity))
+                .build();
     }
 
-//    public List<UserEntity> findAll() {
-//        return repository.findAll();
-//    }
-//
-//    public UserEntity create(UserEntity userAccount) {
-//        return repository.save(userAccount);
-//    }
-//
-//    public void delete(Long id) {
-//        UserEntity userAccount = repository.findById(id).orElseThrow(() -> new ResourceNotFoundExcetion("Пользователь с идентификатором id = \" + id + \" не найден.\""));
-//        repository.delete(userAccount);
-//    }
+    private String[] getRoles(UserEntity userEntity) {
+        if (userEntity.getRole() == null) {
+            return new String[]{"USER"};
+        }
+        return userEntity.getRole().split(", *");
+    }
+
 }
