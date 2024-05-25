@@ -18,17 +18,17 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
                 title = "Документация OpenApi",
                 description = "Документация к RESTful API, созданному в рамках лаб работ по предмету СПРПО в семестре В24"
         )
-        ,
-        security = {
-                @SecurityRequirement(name = "basicAuth")
-        }
+//        ,
+//        security = {
+//                @SecurityRequirement(name = "basicAuth")
+//        }
 )
-@SecurityScheme(
-        name = "basicAuth",
-        description = "Введите имя пользователя и пароль",
-        scheme = "basic",
-        type = SecuritySchemeType.HTTP,
-        in = SecuritySchemeIn.HEADER
-)
+//@SecurityScheme(
+//        name = "basicAuth",
+//        description = "Введите имя пользователя и пароль",
+//        scheme = "basic",
+//        type = SecuritySchemeType.HTTP,
+//        in = SecuritySchemeIn.HEADER
+//)
 public class OpenApiConfig {
 }
