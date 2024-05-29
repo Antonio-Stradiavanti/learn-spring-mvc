@@ -71,4 +71,22 @@ public class CoinEntity  {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<TrendEntity> trends;
 
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", coinName='" + coinName + '\'' +
+                ", coinCode='" + coinCode + '\'' +
+                ", price=" + price +
+                ", oneHourChange=" + oneHourChange +
+                ", twentyFourHourChange=" + twentyFourHourChange +
+                ", sevenDayChange=" + sevenDayChange +
+                ", marketCap=" + marketCap +
+                ", volume=" + volume +
+                ", lastPrice=" + lastPrice +
+                ", portfolios=" + portfolios +
+                ", deals=" + deals +
+                ", trends=" + trends +
+                '}';
+    }
 }

@@ -3,8 +3,12 @@ package ru.manannikov.learnMVC;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+@EnableScheduling
 public class LearnMvcApplication {
 
 	public static void main(String[] args) {
@@ -13,18 +17,8 @@ public class LearnMvcApplication {
 		SpringApplication.run(LearnMvcApplication.class, args);
 	}
 
-	// Возвращаем реализацию функционального интерфейса command line runner, используется для отладки приложения, вызывается сразу после инициализации констекста приложения Spring
-//	@Bean
-//	CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder encoder) {
-//		return args -> {
-//			if (roleRepository.findByAuthority("USER").isPresent()) return;
-//
-//			RoleEntity userRole = roleRepository.save(new RoleEntity("USER"));
-//			RoleEntity adminRole = roleRepository.save(new RoleEntity("ADMIN"));
-//
-//			userRepository.save(new UserEntity("manannikov", encoder.encode("pass"), Set.of(userRole)));
-//			userRepository.save(new UserEntity("admin", encoder.encode("pass"), Set.of(userRole, adminRole)));
-//		};
-//	}
-
+	@Bean
+	RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 }
