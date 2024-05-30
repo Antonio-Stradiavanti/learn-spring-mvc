@@ -6,7 +6,7 @@ WORKDIR /opt/app
 
 # COPY <src> <dest>, где dest -- абсолютный или относительный последней инструкции WORKDIR путь
 COPY mvnw pom.xml ./
-COPY ./src ./src
+COPY . .
 
 RUN mvn clean install -DskipTests
 
